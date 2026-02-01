@@ -25,7 +25,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      animation: fadeIn 2s ease;
+      animation: fadeIn 1.5s ease;
     }
 
     h1 {
@@ -39,13 +39,14 @@
     }
 
     .media-container {
-      position: relative;
       width: 100%;
-      padding-top: 56.25%; /* 16:9 Aspect ratio */
       margin-top: 16px;
+      position: relative;
+      padding-top: 56.25%; /* 16:9 Aspect ratio */
     }
 
-    video, img {
+    .media-container video,
+    .media-container img {
       position: absolute;
       top: 0;
       left: 0;
@@ -53,6 +54,7 @@
       height: 100%;
       border-radius: 14px;
       object-fit: cover;
+      display: block;
     }
 
     .animated-text {
@@ -76,7 +78,7 @@
 
     <!-- Media container -->
     <div class="media-container" id="mediaContainer">
-      <video id="firstVideo" autoplay muted>
+      <video id="firstVideo" autoplay muted playsinline>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -115,9 +117,9 @@
     const firstVideo = document.getElementById("firstVideo");
     const mediaContainer = document.getElementById("mediaContainer");
 
-    firstVideo.onended = () => {
-      // Hide video completely
-      firstVideo.style.display = "none";
+    firstVideo.addEventListener('ended', () => {
+      // Remove video completely
+      firstVideo.remove();
 
       // Create GIF element
       const gif = document.createElement("img");
@@ -126,9 +128,8 @@
       gif.style.borderRadius = "14px";
       gif.style.objectFit = "cover";
 
-      // Append GIF to media container (same size as video)
       mediaContainer.appendChild(gif);
-    };
+    });
   </script>
 
 </body>
