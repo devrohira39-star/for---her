@@ -64,17 +64,6 @@
       min-height: 40px;
     }
 
-    #playMusicBtn {
-      margin-top: 20px;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #ff3366;
-      color: white;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(25px);}
       to { opacity: 1; transform: translateY(0);}
@@ -91,7 +80,6 @@
     <div class="media-container" id="mediaContainer">
       <video id="firstVideo" autoplay muted playsinline>
         <source src="video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
       </video>
     </div>
 
@@ -102,16 +90,11 @@
       Just remember —<br>
       you mean a lot to me.
     </p>
-
-    <!-- Play Music Button -->
-    <button id="playMusicBtn">Tap to play music 🎵</button>
-
   </div>
 
   <!-- Background Music -->
   <audio id="bgMusic" loop>
     <source src="audio.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
   </audio>
 
   <script>
@@ -139,27 +122,35 @@
     const mediaContainer = document.getElementById("mediaContainer");
 
     firstVideo.addEventListener('ended', () => {
-      // Remove video completely
+      // Remove video
       firstVideo.remove();
 
-      // Create GIF element
+      // Create GIF
       const gif = document.createElement("img");
       gif.src = "yay.gif";
       gif.alt = "Yay!";
       gif.style.borderRadius = "14px";
       gif.style.objectFit = "cover";
-
       mediaContainer.appendChild(gif);
     });
 
-    // Music button logic
-    const playBtn = document.getElementById("playMusicBtn");
+    // Music auto-play workaround
     const bgMusic = document.getElementById("bgMusic");
 
-    playBtn.addEventListener('click', () => {
-      bgMusic.play();
-      playBtn.style.display = 'none'; // Hide button after click
-    });
+    function tryPlayMusic() {
+      const playPromise = bgMusic.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay blocked → add event to resume after first user interaction
+          document.body.addEventListener('click', () => {
+            bgMusic.play();
+          }, { once: true });
+        });
+      }
+    }
+
+    // Delay a little so page loads video first
+    window.addEventListener('load', () => setTimeout(tryPlayMusic, 500));
   </script>
 
 </body>
