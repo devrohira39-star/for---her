@@ -39,14 +39,20 @@
     }
 
     .media-container {
+      position: relative;
       width: 100%;
+      padding-top: 56.25%; /* 16:9 Aspect ratio */
       margin-top: 16px;
     }
 
     video, img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
       border-radius: 14px;
-      display: block;
+      object-fit: cover;
     }
 
     .animated-text {
@@ -70,7 +76,7 @@
 
     <!-- Media container -->
     <div class="media-container" id="mediaContainer">
-      <video id="firstVideo" controls autoplay muted>
+      <video id="firstVideo" autoplay muted>
         <source src="video.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
@@ -110,16 +116,17 @@
     const mediaContainer = document.getElementById("mediaContainer");
 
     firstVideo.onended = () => {
-      // Completely remove video element
-      firstVideo.remove();
+      // Hide video completely
+      firstVideo.style.display = "none";
 
-      // Create and append GIF
+      // Create GIF element
       const gif = document.createElement("img");
       gif.src = "yay.gif";
       gif.alt = "Yay!";
-      gif.style.width = "100%";
       gif.style.borderRadius = "14px";
+      gif.style.objectFit = "cover";
 
+      // Append GIF to media container (same size as video)
       mediaContainer.appendChild(gif);
     };
   </script>
