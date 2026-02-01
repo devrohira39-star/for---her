@@ -19,7 +19,8 @@
     }
 
     .container {
-      max-width: 520px;
+      width: 100%;
+      max-width: 520px; /* Page width ke hisaab se video scale */
       padding: 20px;
       animation: fadeIn 2s ease;
     }
@@ -35,9 +36,11 @@
     }
 
     video {
-      width: 100%;
+      width: 100%; /* Full container width */
+      height: auto; /* Aspect ratio maintain */
       border-radius: 14px;
       margin-top: 16px;
+      display: block;
     }
 
     .animated-text {
@@ -96,8 +99,13 @@
 
     // Video + GIF logic
     const firstVideo = document.getElementById("firstVideo");
+    const container = document.querySelector(".container");
 
     firstVideo.onended = () => {
+      // Video stop / hide
+      firstVideo.style.display = "none";
+
+      // GIF create + append
       const gif = document.createElement("img");
       gif.src = "yay.gif";
       gif.alt = "Yay!";
@@ -105,7 +113,7 @@
       gif.style.borderRadius = "14px";
       gif.style.marginTop = "16px";
 
-      document.querySelector(".container").appendChild(gif);
+      container.appendChild(gif);
     };
   </script>
 
