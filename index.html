@@ -2,51 +2,109 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Just For You Kanishka ❤️</title>
+  <title>Kanishka ❤️ Just For You</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background: #0f0f0f;
-      color: white;
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
+      color: white;
       text-align: center;
-      margin: 0;
+      overflow: hidden;
     }
-    .box {
+
+    .container {
       max-width: 520px;
       padding: 20px;
       animation: fadeIn 2s ease;
     }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin-top: 15px;
+    }
+
     video {
       width: 100%;
       border-radius: 14px;
       margin-top: 16px;
     }
+
+    .animated-text {
+      font-size: 1.4em;
+      font-weight: bold;
+      margin-top: 20px;
+      min-height: 40px;
+    }
+
+    img#yayGif {
+      width: 100%;
+      border-radius: 14px;
+      margin-top: 16px;
+    }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(25px);}
+      to { opacity: 1; transform: translateY(0);}
     }
   </style>
 </head>
 <body>
-  <div class="box">
-    <h1>Hey Kanishka ❤️</h1>
-    <p>
-      I didn’t know how to say this properly,<br>
-      so I coded it instead.
-    </p>
 
-    <video controls>
+  <div class="container">
+    <h1>Hey Kanishka ❤️</h1>
+    <p>I didn’t know how to say this properly,<br>so I coded it instead.</p>
+
+    <!-- First video -->
+    <video controls autoplay muted>
       <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
     </video>
+
+    <!-- Animated Text -->
+    <div class="animated-text" id="animatedText"></div>
+
+    <!-- Yay / Yes GIF -->
+    <img id="yayGif" src="yay.gif" alt="Yay!">
 
     <p style="margin-top:16px;">
       Just remember —<br>
       you mean a lot to me.
     </p>
   </div>
+
+  <script>
+    const texts = [
+      "Will you be my Valentine? 💖",
+      "I love you 😍",
+      "You mean everything to me ❤️",
+      "Forever yours, Dev 💌"
+    ];
+
+    let index = 0;
+    const textElement = document.getElementById("animatedText");
+
+    function showText() {
+      textElement.innerText = texts[index];
+      index = (index + 1) % texts.length;
+    }
+
+    // Animated texts every 3 seconds
+    showText();
+    setInterval(showText, 3000);
+
+    // No JS needed for GIF, it auto-plays
+  </script>
+
 </body>
 </html>
