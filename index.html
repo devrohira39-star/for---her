@@ -51,6 +51,7 @@
       width: 100%;
       border-radius: 14px;
       margin-top: 16px;
+      display: none; /* GIF initially hidden */
     }
 
     @keyframes fadeIn {
@@ -66,7 +67,7 @@
     <p>I didn’t know how to say this properly,<br>so I coded it instead.</p>
 
     <!-- First video -->
-    <video controls autoplay muted>
+    <video id="firstVideo" controls autoplay muted>
       <source src="video.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -74,7 +75,7 @@
     <!-- Animated Text -->
     <div class="animated-text" id="animatedText"></div>
 
-    <!-- Yay / Yes GIF -->
+    <!-- Yay / Yes GIF (hidden initially) -->
     <img id="yayGif" src="yay.gif" alt="Yay!">
 
     <p style="margin-top:16px;">
@@ -84,6 +85,7 @@
   </div>
 
   <script>
+    // Animated texts
     const texts = [
       "Will you be my Valentine? 💖",
       "I love you 😍",
@@ -99,11 +101,17 @@
       index = (index + 1) % texts.length;
     }
 
-    // Animated texts every 3 seconds
     showText();
     setInterval(showText, 3000);
 
-    // No JS needed for GIF, it auto-plays
+    // Video + GIF logic
+    const firstVideo = document.getElementById("firstVideo");
+    const yayGif = document.getElementById("yayGif");
+
+    // Show GIF only after video ends
+    firstVideo.onended = () => {
+      yayGif.style.display = "block";
+    };
   </script>
 
 </body>
