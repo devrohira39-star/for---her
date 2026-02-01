@@ -12,10 +12,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
       color: white;
       text-align: center;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     .container {
@@ -47,13 +47,6 @@
       min-height: 40px;
     }
 
-    img#yayGif {
-      width: 100%;
-      border-radius: 14px;
-      margin-top: 16px;
-      display: none; /* GIF initially hidden */
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(25px);}
       to { opacity: 1; transform: translateY(0);}
@@ -74,9 +67,6 @@
 
     <!-- Animated Text -->
     <div class="animated-text" id="animatedText"></div>
-
-    <!-- Yay / Yes GIF (hidden initially) -->
-    <img id="yayGif" src="yay.gif" alt="Yay!">
 
     <p style="margin-top:16px;">
       Just remember —<br>
@@ -106,11 +96,16 @@
 
     // Video + GIF logic
     const firstVideo = document.getElementById("firstVideo");
-    const yayGif = document.getElementById("yayGif");
 
-    // Show GIF only after video ends
     firstVideo.onended = () => {
-      yayGif.style.display = "block";
+      const gif = document.createElement("img");
+      gif.src = "yay.gif";
+      gif.alt = "Yay!";
+      gif.style.width = "100%";
+      gif.style.borderRadius = "14px";
+      gif.style.marginTop = "16px";
+
+      document.querySelector(".container").appendChild(gif);
     };
   </script>
 
