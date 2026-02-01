@@ -64,6 +64,17 @@
       min-height: 40px;
     }
 
+    #playMusicBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background-color: #ff3366;
+      color: white;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(25px);}
       to { opacity: 1; transform: translateY(0);}
@@ -91,10 +102,14 @@
       Just remember —<br>
       you mean a lot to me.
     </p>
+
+    <!-- Play Music Button -->
+    <button id="playMusicBtn">Tap to play music 🎵</button>
+
   </div>
 
   <!-- Background Music -->
-  <audio id="bgMusic" autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="audio.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -135,6 +150,15 @@
       gif.style.objectFit = "cover";
 
       mediaContainer.appendChild(gif);
+    });
+
+    // Music button logic
+    const playBtn = document.getElementById("playMusicBtn");
+    const bgMusic = document.getElementById("bgMusic");
+
+    playBtn.addEventListener('click', () => {
+      bgMusic.play();
+      playBtn.style.display = 'none'; // Hide button after click
     });
   </script>
 
